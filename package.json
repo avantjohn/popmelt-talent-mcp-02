@@ -1,12 +1,12 @@
 {
-  "name": "mcp-template-ts",
+  "name": "popmelt-talent-mcp",
   "version": "1.0.0",
-  "description": "MCP server template for TypeScript",
+  "description": "Popmelt Talent Profile MCP Server",
   "license": "MIT",
   "author": "Better Stack (https://betterstack.com)",
   "type": "module",
   "bin": {
-    "mcp-template-ts": "dist/index.js"
+    "popmelt-talent-mcp": "dist/index.js"
   },
   "files": [
     "dist"
@@ -14,13 +14,21 @@
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
     "prepare": "npm run build",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "start": "node dist/index.js",
+    "dev": "nodemon --watch src --ext ts --exec \"npm run build && npm run start\"",
+    "docker:build": "npm run build && docker build -t popmelt-talent-mcp .",
+    "docker:run": "docker run -it --rm --env-file .env popmelt-talent-mcp",
+    "test:env": "node scripts/test-env.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.6.0",
+    "@supabase/supabase-js": "^2.39.8",
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/node": "^20.11.30",
+    "nodemon": "^3.1.9",
     "shx": "^0.3.4",
     "typescript": "^5.7.3"
   }
